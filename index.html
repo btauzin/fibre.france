@@ -18,12 +18,19 @@
     <script src="https://unpkg.com/@turf/turf@6.3.0/turf.min.js"></script>
     <script src="ABYSS.js"></script>
     <script src="FOCUS.js"></script>
+    <script src="BREST1.js"></script>
     <script src="LETEIL.js"></script>
     <script src="MEUST.js"></script>
     <script src="MNCA.js"></script>
     <script src="MONACO.js"></script>
-    <script src="NESTRO.js"></script>
-    <script src="STRASBURG.js"></script>
+    <script src="NESTOR.js"></script>
+    <script src="HCMR.js"></script>
+    <script src="STRASBOURG.js"></script>
+    <script src="FibresGrenoble.js"></script>
+    <script src="Grenoble_champs-captants.js"></script>
+    <script src="ARGODAS.js"></script>
+    <script src="DASARA_12.js"></script>
+    <script src="IPGP.js"></script>
     <style>
         #map {
             height: 100vh;
@@ -34,7 +41,7 @@
 
 
 
-    <title>FFG</title>
+    <title>French Fiber Group</title>
 </head>
 
 <body>
@@ -123,35 +130,83 @@
     };
     }
     // overlay the fiber routes
-    var STARSBURG = L.geoJSON(STRASBURG, { style: lineStyle, }).addTo(map);
-    var MONACO = L.geoJSON(MONACO, { style: lineStyle, }).addTo(map)   
-    var ABYSS = L.geoJSON(ABYSS, { style: lineStyle, }).addTo(map)   
-    var FOCUS = L.geoJSON(FOCUS, { style: lineStyle, }).addTo(map)   
+    var STRASBOURG = L.geoJSON(STRASBOURG, { style: lineStyle, }).addTo(map);
+    
+    var FOCUS = L.geoJSON(FOCUS, { style: lineStyle, }).addTo(map)
+    var BREST1 = L.geoJSON(BREST1, { style: lineStyle, }).addTo(map)   
+    
     var LETEIL = L.geoJSON(LETEIL, { style: lineStyle, }).addTo(map)   
     var MEUST = L.geoJSON(MEUST, { style: lineStyle, }).addTo(map)   
-    var MNCA = L.geoJSON(MNCA, { style: lineStyle, }).addTo(map)   
-    var NESTRO = L.geoJSON(NESTRO, { style: lineStyle, }).addTo(map)   
+    var MNCA = L.geoJSON(MNCA, { style: lineStyle, }).addTo(map)
+    var HCMR = L.geoJSON(HCMR, { style: lineStyle, }).addTo(map)   
+    var NESTOR = L.geoJSON(NESTOR, { style: lineStyle, }).addTo(map)
+    var MONACO = L.geoJSON(MONACO, { style: lineStyle, }).addTo(map)   
+    var ABYSS = L.geoJSON(ABYSS, { style: lineStyle, }).addTo(map)   
 
+    var GREFIB = L.geoJSON(GREFIB, { style: lineStyle, }).addTo(map)   
+    var GRECHA = L.geoJSON(GRECHA, { style: lineStyle, }).addTo(map)   
+    var ARGODAS = L.geoJSON(ARGODAS, { style: lineStyle, }).addTo(map)
+    
+    //Overlay dasara1,dasara2,aprr
+    var DASARA_12 = L.geoJSON(DASARA_12, { style: lineStyle, }).addTo(map)
+
+    var IPGP = L.geoJSON(IPGP, { style: lineStyle, }).addTo(map)
+    
+    
     // Let's define the markers
 
-    var marker_strasburg = L.marker([48.58020219318517, 7.763025672959176]).addTo(map);
-    marker_strasburg.bindPopup("Strasbourg").openPopup();
-    var marker_monaco = L.marker([43.73534029420677,7.41641740049513]).addTo(map);
-    marker_monaco.bindPopup("Monaco").openPopup();
-    var marker_abyss = L.marker([-29.88803932700965,-71.24961473381573]).addTo(map);
-    marker_abyss.bindPopup("ABYSS").openPopup();
+    var marker_strasbourg = L.marker([48.58020219318517, 7.763025672959176]).addTo(map);
+    marker_strasbourg.bindPopup("STRASBOURG").openPopup();
+
     var marker_focus = L.marker([37.499737174000074,15.383913237000058]).addTo(map);
     marker_focus.bindPopup("FOCUS").openPopup();
+
+    var marker_guadeloupe = L.marker([16.038297, -61.565259]).addTo(map);
+    marker_guadeloupe.bindPopup("GUADELOUPE").openPopup();
+
     var marker_leteil = L.marker([44.56149088131826,4.598153204620957]).addTo(map);
     marker_leteil.bindPopup("Le TEIL").openPopup();       
     var marker_meust = L.marker([43.0769869255,5.89425748639]).addTo(map);
-    marker_meust.bindPopup("MEUST").openPopup();  
+    marker_meust.bindPopup("LSPM").openPopup();  
     var marker_mnca = L.marker([43.7023977154677,7.28094142989036]).addTo(map);
-    marker_mnca.bindPopup("MNCA").openPopup();  
-    var marker_nestro = L.marker([36.81696498127454,21.70747259099767]).addTo(map);
-    marker_nestro.bindPopup("NESTRO").openPopup();           
+    marker_mnca.bindPopup("MNCA").openPopup();
+    var marker_hcmr = L.marker([36.817277, 21.70715]).addTo(map);
+    marker_hcmr.bindPopup("HCMR").openPopup();  
+    var marker_nestor = L.marker([36.81696498127454,21.70747259099767]).addTo(map);
+    marker_nestor.bindPopup("NESTOR").openPopup();   
+    var marker_monaco = L.marker([43.73534029420677,7.41641740049513]).addTo(map);
+    marker_monaco.bindPopup("MONACO").openPopup();
+    var marker_abyss1 = L.marker([-29.88803932700965,-71.24961473381573]).addTo(map);
+    marker_abyss1.bindPopup("ABYSS1").openPopup();
+    var marker_abyss2 = L.marker([-32.932623, -71.488037]).addTo(map);
+    marker_abyss2.bindPopup("ABYSS2").openPopup();
+    
+    var marker_grefib = L.marker([45.19752, 5.772133]).addTo(map);
+    marker_grefib.bindPopup("GRENOBLE").openPopup();
+    var marker_grefib2 = L.marker([45.130651, 5.916604]).addTo(map);
+    marker_grefib2.bindPopup("GRENOBLE").openPopup();
+    var marker_grefib3 = L.marker([45.408966, 6.348209]).addTo(map);
+    marker_grefib3.bindPopup("GRENOBLE").openPopup();
+    var marker_grefib4 = L.marker([45.852119, 6.837616]).addTo(map);
+    marker_grefib4.bindPopup("GRENOBLE").openPopup();
+    var marker_grefib5 = L.marker([45.950158, 6.991231]).addTo(map);
+    marker_grefib5.bindPopup("GRENOBLE").openPopup();
+    var marker_grefib6 = L.marker([45.856446, 6.820439]).addTo(map);
+    marker_grefib6.bindPopup("GRENOBLE").openPopup();
+    var marker_grefib7 = L.marker([38.163642, 20.504466]).addTo(map);
+    marker_grefib7.bindPopup("ARGOSTOLION").openPopup();
+    var marker_grecha = L.marker([45.8007867998862,4.89680819872097]).addTo(map);
+    marker_grecha.bindPopup("CHAMP CAPTANT").openPopup();
+
+    var marker_dasara1 = L.marker([45.805556, 4.771162]).addTo(map);
+    marker_dasara1.bindPopup("DASARA1").openPopup();
+    var marker_dasara2 = L.marker([45.757173, 4.849587]).addTo(map);
+    marker_dasara2.bindPopup("DASARA2").openPopup();
+            
     // Let's define the style of the LineString on the map
 
+    var marker_ipgp = L.marker([38.799319, 15.230425]).addTo(map);
+    marker_ipgp.bindPopup("IPGP").openPopup();
 
     </script>
 </body>
