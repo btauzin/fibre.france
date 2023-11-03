@@ -17,6 +17,7 @@
     <!-- Import Turf.js, a javascript library for doing advanced geospatial analysis-->
     <script src="https://unpkg.com/@turf/turf@6.3.0/turf.min.js"></script>
     <script src="ABYSS.js"></script>
+    <script src="APRR.js"></script>
     <script src="ARGODAS.js"></script>
     <script src="BREST1.js"></script>
     <script src="BRGM.js"></script>
@@ -133,6 +134,8 @@
     // overlay the fiber routes
     var STRASBOURG = L.geoJSON(STRASBOURG, { style: lineStyle, }).addTo(map);
     
+    var APRR = L.geoJSON(APRR, { style: lineStyle, }).addTo(map)
+    
     var BRGM = L.geoJSON(BRGM, { style: lineStyle, }).addTo(map)
 
     var FOCUS = L.geoJSON(FOCUS, { style: lineStyle, }).addTo(map)
@@ -160,6 +163,9 @@
 
     var marker_strasbourg = L.marker([48.58020219318517, 7.763025672959176]).addTo(map);
     marker_strasbourg.bindPopup("STRASBOURG").openPopup();
+
+    var marker_aprr = L.marker([46.133302, 5.542962]).addTo(map);
+    marker_aprr.bindPopup("APRR").openPopup();
 
     var marker_brgm = L.marker([47.926509, 1.906364]).addTo(map);
     marker_brgm.bindPopup("BRGM").openPopup();
