@@ -1,4 +1,4 @@
-var NESTRO = {
+var NESTOR = {
     "type": "FeatureCollection",
     "features": [
       {
