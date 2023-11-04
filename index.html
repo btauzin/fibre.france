@@ -1,226 +1,128 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Import leaflet library and its accessorys-->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-
-    <!-- Leaflet.Draw CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.css" />
-    <!-- Leaflet.Draw JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.js"></script>
-    <!-- Import Turf.js, a javascript library for doing advanced geospatial analysis-->
-    <script src="https://unpkg.com/@turf/turf@6.3.0/turf.min.js"></script>
-    <script src="ABYSS.js"></script>
-    <script src="APRR.js"></script>
-    <script src="ARGODAS.js"></script>
-    <script src="BREST1.js"></script>
-    <script src="BRGM.js"></script>
-    <script src="DASARA_12.js"></script>
-    <script src="FibresGrenoble.js"></script>
-    <script src="FOCUS.js"></script>
-    <script src="Grenoble_champs-captants.js"></script>
-    <script src="HCMR.js"></script>
-    <script src="LETEIL.js"></script>
-    <script src="IPGP.js"></script>
-    <script src="MEUST.js"></script>
-    <script src="MNCA.js"></script>
-    <script src="MONACO.js"></script>
-    <script src="NESTOR.js"></script>
-    <script src="STRASBOURG.js"></script>
-    <style>
-        #map {
-            height: 100vh;
-            width: 100%;
-        }
-    </style>
-
-
-
-
+<html>
+  <head>
     <title>French Fiber Group</title>
-</head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<body>
-    <div id="map">
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha384-VzLXTJGPSyTLX6d96AxgkKvE/LRb7ECGyTxuwtpjHnVWVZs2gp5RDjeM/tgBnVdM"
+      crossorigin="anonymous"
+    />
 
+   <script
+      src="https://unpkg.com/jquery@3.6.0/dist/jquery.min.js"
+      integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+      integrity="sha384-RFZC58YeKApoNsIbBxf4z6JJXmh+geBSgkCQXFyh+4tiFSJmJBt+2FbjxW7Ar16M"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Paths of fibers (GeoJSON files)-->
+    <script src="maps/ABYSS.js"></script>
+    <script src="maps/APRR.js"></script>
+    <script src="maps/ARGODAS.js"></script>
+    <script src="maps/BREST1.js"></script>
+    <script src="maps/BRGM.js"></script>
+    <script src="maps/DASARA_12.js"></script>
+    <script src="maps/FibresGrenoble.js"></script>
+    <script src="maps/FOCUS.js"></script>
+    <script src="maps/Grenoble_champs-captants.js"></script>
+    <script src="maps/HCMR.js"></script>
+    <script src="maps/LETEIL.js"></script>
+    <script src="maps/IPGP.js"></script>
+    <script src="maps/MEUST.js"></script>
+    <script src="maps/MNCA.js"></script>
+    <script src="maps/MONACO.js"></script>
+    <script src="maps/NESTOR.js"></script>
+    <script src="maps/STRASBOURG.js"></script>
+  </head>
+
+  <body>
+    <h1>French Fiber Group</h1>
+
+    <p>This interactive map presents all the experiments done by the French research community of fiber optic sensing.
+    <p> 04 Nov 2023 //<br> The French Fiber Group
+    </p>
+
+    <div id="map" style="width: 800px; height: 440px; border: 1px solid #AAA;"></div>
+
+    <div id="text" style="width: 800px; height: 440px; border: 1px">
+    
+      <p>
+        <h3 id="BRGM"><b>[BRGM]</b></h3>     
+        <ul>
+          <li>SITcomOptics : projet ANR interrogeant par DAS une fibre optique télécom longue de 10 km le long d'une ligne LGV.</li><br>
+          <li>Projet BRGM PEX-DAS de plateforme expérimentale avec une fibre enterrée sur 300 mètres environ.</li>
+        </ul>
+      </p>
+      <p><h3 id="BREST"><b>[BREST]</b></h3>
+        <ul>
+          <li>FOCUS : Cable de fibre-optique connecté à un noeud/observatoire par 2000m de fond.  Long de 29 km avec une triple boucle de 6.2 km 
+            correspondant à un chemin total de 48 km. Interrogé par BOTDR
+            toutes les 2 heures en quasi continu depuis Oct. 2020. Voir publication
+            Gutscher et al., 2023, EPSL. Chemin optique interrogé aussi par DAS en Oct. 2020, Sept. 2021
+            et prochainement fin Oct./début Nov. 2023.</li><br>
+          <li>Guadeloupe : 3 campagnes de mesures BOTDR en Juin 2022, Dec. 2022, Juin 2023, et une 4ème prévue fin Nov. 2023</li>
+        </ul>
+      </p>
+      <p><h3 id="LYON"><b>[LYON]</b></h3>
+        Gauge length de 2 à 10m et fréquence d'échantillonnage de 200 à 400 Hz.
+        <ul>
+          <li>DASARA 1 : Cable télécom de fibre optique dans la métropole Lyonnaise. Long de 24 km, il part des Monts d'Or et rejoint 
+            Vénissieux en passant par la plaine alluviale du Rhône et de la Saône. Interrogé par DAS durant 53h en Nov. 2021.</li><br>
+          <li>DASARA 2 : Cable télécom de fibre optique long de 2 km dans le quartier Part Dieu, Lyon 3ième. En fin de ligne, le 
+            câble monte dans un bâtiment de 11 étages, le Britannia. Interrogé par DAS durant 1 semaine en juin 2022.</li><br>
+          <li>A40 APRR/AREA : Cable télécom de fibre optique opéré par la société autoroutière APRR/AREA sur l'A40, "l'autoroute des Titans".
+            Interrogé par DAS durant 53h en Oct. 2023, la fibre échantillonne 26 ouvrages dont 12 viaducs et 3 tunnels.</li>
+        </ul>
+      </p>
+      <p><h3 id="NICE"><b>[NICE]</b></h3>
+          Généralement, gauge length de 6-10 m et fréquence d'échantillonnage de 100-200 Hz.
+          <ul>
+            <li>Le Teil : 14km.</li><br>
+            <li>LSPM : Câble de fibres optiques au large de Toulon. Interrogé par DAS sur 37 à 50 km selon la fibre.</li><br>
+            <li>MNCA : Câble de fibres optiques télécom à Nice long de 60 km et interrogé par DAS sur 20km.</li><br>
+            <li>HCMR : 13.2 km.</li><br>
+            <li>NESTOR : 26.3 km.</li><br>
+            <li>MONACO : Câble de fibres optiques Monaco-Savone, long de 160 km et interrogé par DAS sur environ 130 km.</li><br>
+            <li>ABYSS FO Norte : .</li><br>
+            <li>ABYSS FO Sur : .</li><br>
+            <li>ABYSS CONCON : .</li><br>
+          </ul>
+      </p>
+      <p><h3 id="GRENOBLE"><b>[GRENOBLE]</b></h3>
+        <ul>
+          <li>Grenoble.</li>
+          <li>Lacs Robert.</li>
+          <li>Saint-François Longchamp.</li>
+          <li>Glacier de Taconnaz.</li>
+          <li>Glacier d'Argentière.</li>
+          <li>Glacier de Tête Rousse.</li>
+          <li>ARGODAS : Argostoli sur l'île de Céphalonie (Grèce).</li>
+          <li>Champs de captage de Crépieux Charmy.</li>
+        </ul>
+      </p>
+      <p><h3 id="IPGP"><b>[IPGP]</b></h3>
+        <ul>
+          <li>Stromboli.</li>
+        </ul>
+      </p>
+      <p><h3 id="STRASBOURG"><b>[STRASBOURG]</b></h3>
+        <ul>
+          <li>StrasDAS : Fibre optique télécom située dans la ville de Strasbourg interrogée par DAS durant 1 semaine en Sept. 2023. Longueur ~10km
+            avec un pas échantillonnage spatial de 1m, une longueur de gauge de 10m, une fréquence d’échantillonnage de 200Hz,
+          </li>
+        </ul>
+      </p>
     </div>
 
-
-    <script>
-        //var map = L.map('map').setView([45.763420, 4.834277], 14);
-        let map = L.map("map", { center: [46.2276, 2.2137], zoom: 1 });        // OSM layer
-        var osm = L.tileLayer('https://api.maptiler.com/maps/satellite/256/{z}/{x}/{y}.jpg?key=2Ioi0rNgt67Fd1GyQuM7', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        });
-        osm.addTo(map);
-        var OpenTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-        maxZoom: 17,
-        attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
-    });
-    var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
-    });
-    var Esri_WorldShadedRelief = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Shaded_Relief/MapServer/tile/{z}/{y}/{x}', {
-        attribution: 'Tiles &copy; Esri &mdash; Source: Esri',
-        maxZoom: 13
-    });
-    var MtbMap = L.tileLayer('http://tile.mtbmap.cz/mtbmap_tiles/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &amp; USGS'
-    });
-
-    // Leaflet Layer Control
-    var baseMaps = {
-        'Open Street Map': osm,
-        'Open Topo Map': OpenTopoMap,
-        'Esri World Imagery': Esri_WorldImagery,
-        'Esri World Shaded Relief': Esri_WorldShadedRelief,
-        'Mtb Map': MtbMap
-    }
-    L.control.layers(baseMaps).addTo(map)
-
-
-    // add a scale bar
-    L.control.scale({
-        metric: true,
-        imperial: true,
-        maxWidth: 100,
-        position: 'bottomleft'
-    }).addTo(map);
-    // bring the zoom tool to the right hand of the map
-    L.control.zoom({ position: 'topright' }).addTo(map);
-    // Add the capability of measuring distance of two points
-    var drawControl = new L.Control.Draw({
-        position: 'topright' // Or any other position
-    });
-    // Add the custom class to the control container
-    map.addControl(drawControl);
-    // sticking them to the map
-    var drawnFeatures = new L.FeatureGroup();
-    map.addLayer(drawnFeatures);
-    map.on("draw:created", function (e) {
-        var type = e.layerType;
-        var layer = e.layer;
-        drawnFeatures.addLayer(layer);
-    })
-
-    //click on me
-    var popup = L.popup();
-
-    function onMapClick(e) {
-        popup
-            .setLatLng(e.latlng)
-            .setContent("You clicked the map at " + e.latlng.toString())
-            .openOn(map);
-    }
-
-    map.on('click', onMapClick);
-
-
-
-
-    function lineStyle(feature) {
-    return {
-        color: "red",  // Change the color to your desired color
-        weight: 4,       // Change the line width (weight) to your desired value
-    };
-    }
-    // overlay the fiber routes
-    var STRASBOURG = L.geoJSON(STRASBOURG, { style: lineStyle, }).addTo(map);
-    
-    var APRR = L.geoJSON(APRR, { style: lineStyle, }).addTo(map)
-    
-    var BRGM = L.geoJSON(BRGM, { style: lineStyle, }).addTo(map)
-
-    var FOCUS = L.geoJSON(FOCUS, { style: lineStyle, }).addTo(map)
-    var BREST1 = L.geoJSON(BREST1, { style: lineStyle, }).addTo(map)   
-    
-    var LETEIL = L.geoJSON(LETEIL, { style: lineStyle, }).addTo(map)   
-    var MEUST = L.geoJSON(MEUST, { style: lineStyle, }).addTo(map)   
-    var MNCA = L.geoJSON(MNCA, { style: lineStyle, }).addTo(map)
-    var HCMR = L.geoJSON(HCMR, { style: lineStyle, }).addTo(map)   
-    var NESTOR = L.geoJSON(NESTOR, { style: lineStyle, }).addTo(map)
-    var MONACO = L.geoJSON(MONACO, { style: lineStyle, }).addTo(map)   
-    var ABYSS = L.geoJSON(ABYSS, { style: lineStyle, }).addTo(map)   
-
-    var GREFIB = L.geoJSON(GREFIB, { style: lineStyle, }).addTo(map)   
-    var GRECHA = L.geoJSON(GRECHA, { style: lineStyle, }).addTo(map)   
-    var ARGODAS = L.geoJSON(ARGODAS, { style: lineStyle, }).addTo(map)
-    
-    //Overlay dasara1,dasara2,aprr
-    var DASARA_12 = L.geoJSON(DASARA_12, { style: lineStyle, }).addTo(map)
-
-    var IPGP = L.geoJSON(IPGP, { style: lineStyle, }).addTo(map)
-    
-    
-    // Let's define the markers
-
-    var marker_strasbourg = L.marker([48.58020219318517, 7.763025672959176]).addTo(map);
-    marker_strasbourg.bindPopup("STRASBOURG").openPopup();
-
-    var marker_aprr = L.marker([46.133302, 5.542962]).addTo(map);
-    marker_aprr.bindPopup("APRR").openPopup();
-
-    var marker_brgm = L.marker([47.926509, 1.906364]).addTo(map);
-    marker_brgm.bindPopup("BRGM").openPopup();
-
-    var marker_focus = L.marker([37.499737174000074,15.383913237000058]).addTo(map);
-    marker_focus.bindPopup("FOCUS").openPopup();
-
-    var marker_guadeloupe = L.marker([16.038297, -61.565259]).addTo(map);
-    marker_guadeloupe.bindPopup("GUADELOUPE").openPopup();
-
-    var marker_leteil = L.marker([44.56149088131826,4.598153204620957]).addTo(map);
-    marker_leteil.bindPopup("Le TEIL").openPopup();       
-    var marker_meust = L.marker([43.0769869255,5.89425748639]).addTo(map);
-    marker_meust.bindPopup("LSPM").openPopup();  
-    var marker_mnca = L.marker([43.7023977154677,7.28094142989036]).addTo(map);
-    marker_mnca.bindPopup("MNCA").openPopup();
-    var marker_hcmr = L.marker([36.817277, 21.70715]).addTo(map);
-    marker_hcmr.bindPopup("HCMR").openPopup();  
-    var marker_nestor = L.marker([36.81696498127454,21.70747259099767]).addTo(map);
-    marker_nestor.bindPopup("NESTOR").openPopup();   
-    var marker_monaco = L.marker([43.73534029420677,7.41641740049513]).addTo(map);
-    marker_monaco.bindPopup("MONACO").openPopup();
-    var marker_abyss1 = L.marker([-29.88803932700965,-71.24961473381573]).addTo(map);
-    marker_abyss1.bindPopup("ABYSS1").openPopup();
-    var marker_abyss2 = L.marker([-32.932623, -71.488037]).addTo(map);
-    marker_abyss2.bindPopup("ABYSS2").openPopup();
-    
-    var marker_grefib = L.marker([45.19752, 5.772133]).addTo(map);
-    marker_grefib.bindPopup("GRENOBLE").openPopup();
-    var marker_grefib2 = L.marker([45.130651, 5.916604]).addTo(map);
-    marker_grefib2.bindPopup("GRENOBLE").openPopup();
-    var marker_grefib3 = L.marker([45.408966, 6.348209]).addTo(map);
-    marker_grefib3.bindPopup("GRENOBLE").openPopup();
-    var marker_grefib4 = L.marker([45.852119, 6.837616]).addTo(map);
-    marker_grefib4.bindPopup("GRENOBLE").openPopup();
-    var marker_grefib5 = L.marker([45.950158, 6.991231]).addTo(map);
-    marker_grefib5.bindPopup("GRENOBLE").openPopup();
-    var marker_grefib6 = L.marker([45.856446, 6.820439]).addTo(map);
-    marker_grefib6.bindPopup("GRENOBLE").openPopup();
-    var marker_grefib7 = L.marker([38.163642, 20.504466]).addTo(map);
-    marker_grefib7.bindPopup("ARGOSTOLION").openPopup();
-    var marker_grecha = L.marker([45.8007867998862,4.89680819872097]).addTo(map);
-    marker_grecha.bindPopup("CHAMP CAPTANT").openPopup();
-
-    var marker_dasara1 = L.marker([45.805556, 4.771162]).addTo(map);
-    marker_dasara1.bindPopup("DASARA1").openPopup();
-    var marker_dasara2 = L.marker([45.757173, 4.849587]).addTo(map);
-    marker_dasara2.bindPopup("DASARA2").openPopup();
-            
-    // Let's define the style of the LineString on the map
-
-    var marker_ipgp = L.marker([38.799319, 15.230425]).addTo(map);
-    marker_ipgp.bindPopup("IPGP").openPopup();
-
-    </script>
-</body>
-
+    <script type='text/javascript' src='maps/markers.js'></script>
+    <script type='text/javascript' src='maps/leaf-demo.js'></script>
+    <script type='text/javascript' src='maps/path-fiber.js'></script>
+  
+  </body>
 </html>
