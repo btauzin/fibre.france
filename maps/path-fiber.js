@@ -24,6 +24,7 @@ var NESTOR = L.geoJSON(NESTOR, { style: lineStyle, }).addTo(map)
 var MONACO = L.geoJSON(MONACO, { style: lineStyle, }).addTo(map)   
 var ABYSS = L.geoJSON(ABYSS, { style: lineStyle, }).addTo(map)   
 
+var GrenobleMetropole = L.geoJSON(GrenobleMetropole, { style: lineStyle, }).addTo(map)
 var GREFIB = L.geoJSON(GREFIB, { style: lineStyle, }).addTo(map)   
 var GRECHA = L.geoJSON(GRECHA, { style: lineStyle, }).addTo(map)   
 var ARGODAS = L.geoJSON(ARGODAS, { style: lineStyle, }).addTo(map)
