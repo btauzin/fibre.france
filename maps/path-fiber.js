@@ -7,6 +7,8 @@ function lineStyle(feature) {
 
 // Overlay the fiber routes
 var STRASBOURG = L.geoJSON(STRASBOURG, { style: lineStyle, }).addTo(map);
+var EOSTFONT = L.geoJSON(EOSTFONT, { style: lineStyle, }).addTo(map)
+var EOSTPYR = L.geoJSON(EOSTPYR, { style: lineStyle, }).addTo(map)
 
 var DASARA_12 = L.geoJSON(DASARA_12, { style: lineStyle, }).addTo(map)
 var APRR = L.geoJSON(APRR, { style: lineStyle, }).addTo(map)

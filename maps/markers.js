@@ -6,6 +6,12 @@ var markers = [
      "lat": 47.926509,
      "lng": 1.906364
    },
+   {
+      "name": "BRGM PEX-DAS",
+      "url": "#BRGM",
+      "lat": 47.832345,
+      "lng": 1.93913
+    },
    // BREST
    {
     "name": "FOCUS",
@@ -89,7 +95,13 @@ var markers = [
    },
    // GRENOBLE
    {
-      "name": "Grenoble",
+      "name": "Grenoble Metropole",
+      "url": "#GRENOBLE",
+      "lat": 45.16896, 
+      "lng": 5.755361
+   },
+   {
+      "name": "Grenoble Campus",
       "url": "#GRENOBLE",
       "lat": 45.19752,
       "lng": 5.772133
@@ -149,5 +161,17 @@ var markers = [
     "url": "#STRASBOURG",
     "lat": 48.58020219318517,
     "lng": 7.763025672959176
-   }
+   },
+   {
+      "name": "EOST Fontenotte",
+      "url": "#STRASBOURG",
+      "lat": 47.3739331,
+      "lng": 6.3225015
+     },
+     {
+      "name": "EOST Pyrénées",
+      "url": "#STRASBOURG",
+      "lat": 43.08939543752225,
+      "lng": 0.3855163763231451
+     }
 ];
