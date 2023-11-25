@@ -1,618 +1,182 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
+    <title>French Fiber Group</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-  <title>Metadata</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha384-VzLXTJGPSyTLX6d96AxgkKvE/LRb7ECGyTxuwtpjHnVWVZs2gp5RDjeM/tgBnVdM"
+      crossorigin="anonymous"
+    />
+
+   <script
+      src="https://unpkg.com/jquery@3.6.0/dist/jquery.min.js"
+      integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+      integrity="sha384-RFZC58YeKApoNsIbBxf4z6JJXmh+geBSgkCQXFyh+4tiFSJmJBt+2FbjxW7Ar16M"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Paths of fibers (GeoJSON files)-->
+    <script src="maps/ABYSS.js"></script>
+    <script src="maps/APRR.js"></script>
+    <script src="maps/ARGODAS.js"></script>
+    <script src="maps/BREST1.js"></script>
+    <script src="maps/BRGM.js"></script>
+    <script src="maps/DASARA_12.js"></script>
+    <script src="maps/EOST-Fontenotte-2021.js"></script>
+    <script src="maps/EOST-PyrenneesCentrale.js"></script>
+    <script src="maps/GrenobleMetropole.js"></script>
+    <script src="maps/FibresGrenoble.js"></script>
+    <script src="maps/FOCUS.js"></script>
+    <script src="maps/Grenoble_champs-captants.js"></script>
+    <script src="maps/HCMR.js"></script>
+    <script src="maps/LETEIL.js"></script>
+    <script src="maps/IPGP.js"></script>
+    <script src="maps/MEUST.js"></script>
+    <script src="maps/MNCA.js"></script>
+    <script src="maps/MONACO.js"></script>
+    <script src="maps/NESTOR.js"></script>
+    <script src="maps/STRASBOURG.js"></script>
+  </head>
+
   <style>
-    /* Style for hiding/showing pages */
-    .form-page {
-      display: none;
+    .container {
+      display: flex;
+      align-items: center; 
+     padding-left: 10px;
     }
-
-    .form-page.active {
-      display: block;
+    img{
+      margin-left: 15px ;
+      margin-right: 15px;
     }
-  </style>
+    </style>
 
-  <link rel="stylesheet" href="styles.css">
-  <script>
+  <body>
 
-    function displayJSON() {
-
-    const network_code = document.getElementById('network_code').value;
-    const location = document.getElementById('location').value;
-    const country = document.getElementById('country').value;
-    const principle_investigator_name = document.getElementById('principle_investigator_name').value;
-    const principle_investigator_email = document.getElementById('principle_investigator_email').value;
-    const principle_investigator_address = document.getElementById('principle_investigator_address').value;
-    const point_of_contact = document.getElementById('point_of_contact').value;
-    const point_of_contact_email = document.getElementById('point_of_contact_email').value;
-    const point_of_contact_address = document.getElementById('point_of_contact_address').value;
-    const start_date = document.getElementById('start_date').value;
-    const end_date = document.getElementById('end_date').value;
-    const funding_agency = document.getElementById('funding_agency').value;
-    const project_number = document.getElementById('project_number').value;
-    const digital_object_identifier = document.getElementById('digital_object_identifier').value;
-    const purpose_of_data_collection = document.getElementById('purpose_of_data_collection').value;
-    const comment1 = document.getElementById('comment1').value;
-
-    // Interrogator
-    const interrogator_id = document.getElementById('interrogator_id').value;
-    const manufacturer = document.getElementById('manufacturer').value;
-    const model = document.getElementById('model').value;
-    const serial_number = document.getElementById('serial_number').value;
-    const firmware_version = document.getElementById('firmware_version').value;
-    const comment2 = document.getElementById('comment2').value;
-
-    // Acquisition
-    const acquisition_id = document.getElementById('acquisition_id').value;
-    const acquisition_start_time = document.getElementById('acquisition_start_time').value;
-    const acquisition_end_time = document.getElementById('acquisition_end_time').value;
-    const acquisition_sample_rate = document.getElementById('acquisition_sample_rate').value;
-    const gauge_length = document.getElementById('gauge_length').value;
-    const number_of_channels = document.getElementById('number_of_channels').value;
-    const spatial_sampling_interval = document.getElementById('spatial_sampling_interval').value;
-    const pulse_rate = document.getElementById('pulse_rate').value;
-    const pulse_width = document.getElementById('pulse_width').value;
-    const comment3 = document.getElementById('comment3').value;
-
-    // Channel_Group
-    const channel_group_id = document.getElementById('channel_group_id').value;
-    const coordinate_generation_date = document.getElementById('coordinate_generation_date').value;
-    const coordinate_system = document.getElementById('coordinate_system').value;
-    const reference_frame = document.getElementById('reference_frame').value;
-    const location_method = document.getElementById('location_method').value;
-    const uncertainty_in_x_coordinate = document.getElementById('uncertainty_in_x_coordinate').value;
-    const uncertainty_in_y_coordinate = document.getElementById('uncertainty_in_y_coordinate').value;
-    const uncertainty_in_elevation = document.getElementById('uncertainty_in_elevation').value;
-    const uncertainty_in_depth = document.getElementById('uncertainty_in_depth').value;
-    const uncertainty_in_strike = document.getElementById('uncertainty_in_strike').value;
-    const uncertainty_in_dip = document.getElementById('uncertainty_in_dip').value;
-    const first_usable_channel_id = document.getElementById('first_usable_channel_id').value;
-    const last_usable_channel_id = document.getElementById('last_usable_channel_id').value;
-    const comment4 = document.getElementById('comment4').value;
+    <!--<div id="text" style="width: 800px; height: 400px; border: 1px">
+    <div class="container">
+      <div class="image"> <img src="maps/images/CNRS.png" alt="CEA" align="middle" width="70" height="auto"/> </div>
+      <div class="image"> <img src="maps/images/Epos_France.png" alt="Epos_France" align="middle" width="100" height="auto"/> </div>
+      <div class="image"> <img src="maps/images/DataTerra.png" alt="DataTerra" align="middle" width="100" height="auto"/> </div>
+      <div class="image"> <img src="maps/images/BRGM.png" alt="BRGM" width="70" height="auto"/> </div> 
+      <div class="image"> <img src="maps/images/CEA.png" alt="CEA" width="70" height="auto"/> </div>
+      <div class="image"> <img src="maps/images/CoteAzur.png" alt="CoteAzur" width="70" height="auto"/> </div>
+    </div>
+    <div class="container">
+      
+      <div class="image"> <img src="maps/images/GustaveEiffel.png" alt="GustaveEiffel" width="70" height="auto"/> </div>
+      <div class="image"> <img src="maps/images/Ifremer.png" alt="GustaveEiffel" width="70" height="auto"/> </div> 
+      <div class="image"> <img src="maps/images/INERIS.jpg" alt="GustaveEiffel" width="70" height="auto"/> </div>
+      <div class="image"> <img src="maps/images/IRD.png" alt="BRGM" width="70" height="auto"/> </div> 
+      <div class="image"> <img src="maps/images/Lorraine.png" alt="CoteAzur" width="70" height="auto"/> </div>
+      <div class="image"> <img src="maps/images/Lyon1.png" alt="UCB Lyon 1" width="70" height="auto"/> </div>
+      <div class="image"> <img src="maps/images/ODATIS.jpg" alt="ODATIS" width="70" height="auto"/> </div>
+    </div>
+    <div class="container">     
+      
+      <div class="image"> <img src="maps/images/Strasbourg.png" alt="Strasbourg" width="70" height="auto"/> </div> 
+      <div class="image"> <img src="maps/images/UBO.png" alt="UBO" width="70" height="auto"/> </div>
+    </div>
+    </div>-->
     
-    // Channel
-    const channel_id = document.getElementById('channel_id').value;
-    const distance_along_fiber = document.getElementById('distance_along_fiber').value;
-    const x_coordinate = document.getElementById('x_coordinate').value;
-    const y_coordinate = document.getElementById('y_coordinate').value;
-    const elevation_above_sea_level = document.getElementById('elevation_above_sea_level').value;
-    const depth_below_surface = document.getElementById('depth_below_surface').value;
-    const strike = document.getElementById('strike').value;
-    const dip = document.getElementById('dip').value;
+    <!--<img src="maps/images/Epos_France.png" alt="EPOS-FR" align="left" width="200" height="auto" />-->
+    <!--<img src="maps/images/DataTerra.png" alt="DATA TERRA" align="right" width="180" height="auto" />-->
+    <!--<img src="maps/images/BRGM.png" alt="BRGM" align="middle" height="50" width="auto" />
+    <img src="maps/images/CEA.png" alt="CEA" align="middle" height="50" width="auto" />
+    <img src="maps/images/CoteAzur.png" alt="CEA" align="middle" height="40" width="auto" />
+    <img src="maps/images/GustaveEiffel.png" alt="CEA" align="middle" height="40" width="auto" />
+    </div>-->
 
-    // Cable
-    const cable_id = document.getElementById('cable_id').value;
-    const min_latitude = document.getElementById('min_latitude').value;
-    const max_latitude = document.getElementById('max_latitude').value;
-    const min_longitude = document.getElementById('min_longitude').value;
-    const max_longitude = document.getElementById('max_longitude').value;
-    const cable_owner = document.getElementById('cable_owner').value;
-    const cable_installation_date = document.getElementById('cable_installation_date').value;
-    const cable_removal_date = document.getElementById('cable_removal_date').value;
-    const cable_characteristics = document.getElementById('cable_characteristics').value;
-    const cable_environment = document.getElementById('cable_environment').value;
-    const cable_installation_environment = document.getElementById('cable_installation_environment').value;
-    const cable_model = document.getElementById('cable_model').value;
-    const cable_outside_diameter = document.getElementById('cable_outside_diameter').value;
-    const comment5 = document.getElementById('comment5').value;
+    <h1>French Fiber Group</h1>
 
-    // Fiber
-    const fiber_id = document.getElementById('fiber_id').value;
-    const fiber_geometry = document.getElementById('fiber_geometry').value;
-    const fiber_mode = document.getElementById('fiber_mode').value;
-    const fiber_refraction_index = document.getElementById('fiber_refraction_index').value;
-    const fiber_winding_angle = document.getElementById('fiber_winding_angle').value;
-    const fiber_start_location = document.getElementById('fiber_start_location').value;
-    const fiber_end_location = document.getElementById('fiber_end_location').value;
-    const fiber_optical_length = document.getElementById('fiber_optical_length').value;
-    const fiber_one_way_attenuation = document.getElementById('fiber_one_way_attenuation').value;
-    const comment6 = document.getElementById('comment6').value;
+    <p>This interactive map presents all the experiments done by the French research community of fiber optic sensing.
+    <p> 04 Nov 2023 //<br> The French Fiber Group
+    </p>
 
+    <div id="map" style="width: 800px; height: 440px; border: 1px solid #AAA;"></div>
 
-      const formData = 
-      {
-        "Overview": {
-                "Attributes": {
-                    "network_code": network_code,
-                    "location": location,
-                    "country": country,
-                    "principle_investigator_name": principle_investigator_name,
-                    "principle_investigator_address": principle_investigator_address,
-                    "point_of_contact": point_of_contact,
-                    "point_of_contact_email": point_of_contact_email,
-                    "point_of_contact_address": point_of_contact_address,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                    "funding_agency": funding_agency,
-                    "project_number": project_number,
-                    "digital_object_identifier": digital_object_identifier,
-                    "purpose_of_data_collection": purpose_of_data_collection,
-                    "comment1": comment1
-                },
-        },
-        "Interrogator": [
-            {
-                "Attributes": {
-                    "interrogator_id": interrogator_id,
-                    "manufacturer": manufacturer,
-                    "model": model,
-                    "serial_number": serial_number,
-                    "firmware_version": firmware_version,
-                    "comment2": comment2
-                },
-                "Acquisition": [
-                    {
-                        "Attributes": {
-                            "acquisition_id": acquisition_id,
-                            "interrogator_id": interrogator_id,
-                            "acquisition_start_time": acquisition_start_time,
-                            "acquisition_end_time": acquisition_end_time,
-                            "acquisition_sample_rate": acquisition_sample_rate,
-                            "acquisition_sample_rate_unit": "Hertz",
-                            "gauge_length": gauge_length,
-                            "gauge_length_unit": "meter",
-                            "unit_of_measure": "count",
-                            "number_of_channels": number_of_channels,
-                            "spatial_sampling_interval": spatial_sampling_interval,
-                            "spatial_sampling_interval_unit": "meter",
-                            "pulse_rate": pulse_rate,
-                            "pulse_rate_unit": "Hz",
-                            "pulse_width": pulse_width,
-                            "pulse_width_unit": "meter",
-                            "comment3": comment3
-                        },
-                        "Channel_Group": [
-                            {
-                                "Attributes": {
-                                    "channel_group_id": channel_group_id,
-                                    "interrogator_id": interrogator_id,
-                                    "acquisition_id": acquisition_id,
-                                    "cable_id": cable_id,
-                                    "fiber_id": fiber_id,
-                                    "coordinate_generation_date": coordinate_generation_date,
-                                    "coordinate_system": coordinate_system,
-                                    "reference_frame": reference_frame,
-                                    "location_method": location_method,
-                                    "distance_along_fiber_unit": "meter",
-                                    "x_coordinate_unit": "meter",
-                                    "uncertainty_in_x_coordinate": uncertainty_in_x_coordinate,
-                                    "uncertainty_in_x_coordinate_unit": "meter",
-                                    "y_coordinate_unit": "meter",
-                                    "uncertainty_in_y_coordinate": uncertainty_in_y_coordinate,
-                                    "uncertainty_in_y_coordinate_unit": "meter",
-                                    "elevation_above_sea_level_unit": "meter",
-                                    "uncertainty_in_elevation": uncertainty_in_elevation,
-                                    "uncertainty_in_elevation_unit": "meter",
-                                    "depth_below_surface_unit": "meter",
-                                    "uncertainty_in_depth": uncertainty_in_depth,
-                                    "uncertainty_in_depth_unit": "meter",
-                                    "strike_unit": "degree",
-                                    "uncertainty_in_strike": uncertainty_in_strike,
-                                    "uncertainty_in_strike_unit": "degree",
-                                    "dip_unit": "degree",
-                                    "uncertainty_in_dip": uncertainty_in_dip,
-                                    "uncertainty_in_dip_unit": "degree",
-                                    "first_usable_channel_id": first_usable_channel_id,
-                                    "last_usable_channel_id": last_usable_channel_id,
-                                    "comment4": comment4
-                                },
-                                "Channel": [
-                                    {
-                                        "Attributes": {
-                                            "channel_id": channel_id,
-                                            "channel_group_id": channel_group_id,
-                                            "distance_along_fiber": distance_along_fiber,
-                                            "x_coordinate": x_coordinate,
-                                            "y_coordinate": y_coordinate,
-                                            "elevation_above_sea_level": elevation_above_sea_level,
-                                            "depth_below_surface": depth_below_surface,
-                                            "strike": strike,
-                                            "dip": dip
-                                        }
-                                    },
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        ],
-        "Cable": [
-            {
-                "Attributes": {
-                        "cable_id": cable_id,
-                        "cable_bounding_box": {
-                            "min_latitude": min_latitude,
-                            "max_latitude": max_latitude,
-                            "min_longitude": min_longitude,
-                            "max_longitude": max_longitude
-                        },
-                        "cable_owner": cable_owner,
-                        "cable_installation_date": cable_installation_date,
-                        "cable_removal_date": cable_removal_date,
-                        "cable_characteristics": "buffered",
-                        "cable_environment": cable_environment,
-                        "cable_installation_environment": cable_installation_environment,
-                        "cable_model": cable_model,
-                        "cable_outside_diameter": cable_outside_diameter,
-                        "cable_outside_diameter_unit": "millimeter",
-                        "comment5": comment5
-                },
-                "Fiber": [
-                    {
-                        "Attributes": {
-                            "fiber_id": fiber_id,
-                            "cable_id": cable_id,
-                            "fiber_geometry": fiber_geometry,
-                            "fiber_mode": fiber_mode,
-                            "fiber_refraction_index": fiber_refraction_index,
-                            "fiber_winding_angle": fiber_winding_angle,
-                            "fiber_winding_angle_unit": "degree",
-                            "fiber_start_location": fiber_start_location,
-                            "fiber_start_location_unit": "meter",
-                            "fiber_end_location": fiber_end_location,
-                            "fiber_end_location_unit": "meter",
-                            "fiber_optical_length": fiber_optical_length,
-                            "fiber_optical_length_unit": "meter",
-                            "fiber_one_way_attenuation": fiber_one_way_attenuation,
-                            "fiber_one_way_attenuation_unit": "dB/m",
-                            "comment6": comment6
-                        },
-                    }
-                ]
-            }
-        ]
-    };
+    <div id="text" style="width: 800px; height: 440px; border: 1px">
+    
+      <p>
+        <h3 id="BRGM"><b>[BRGM]</b></h3>     
+        <ul>
+          <li>SITcomOptics : projet ANR interrogeant par DAS une fibre optique télécom longue de 10 km le long d'une voie ferrée.</li><br>
+          <li>BRGM PEX-DAS : plateforme expérimentale avec une fibre enterrée sur 300 mètres environ.</li>
+        </ul>
+      </p>
+      <p><h3 id="BREST"><b>[BREST]</b></h3>
+        <ul>
+          <li>FOCUS : Cable de fibre-optique connecté à un noeud/observatoire par 2000m de fond.  Long de 29 km avec une triple boucle de 6.2 km 
+            correspondant à un chemin total de 48 km. Interrogé par BOTDR
+            toutes les 2 heures en quasi continu depuis Oct. 2020. Voir publication
+            Gutscher et al., 2023, EPSL. Chemin optique interrogé aussi par DAS en Oct. 2020, Sept. 2021
+            et prochainement fin Oct./début Nov. 2023.</li><br>
+          <li>Guadeloupe : 3 campagnes de mesures BOTDR en Juin 2022, Dec. 2022, Juin 2023, et une 4ème prévue fin Nov. 2023</li>
+        </ul>
+      </p>
+      <p><h3 id="LYON"><b>[LYON]</b></h3>
+        Gauge length de 2 à 10m et fréquence d'échantillonnage de 200 à 400 Hz.
+        <ul>
+          <li>DASARA 1 : Cable télécom de fibre optique dans la métropole Lyonnaise. Long de 24 km, il part des Monts d'Or et rejoint 
+            Vénissieux en passant par la plaine alluviale du Rhône et de la Saône. Interrogé par DAS durant 53h en Nov. 2021.</li><br>
+          <li>DASARA 2 : Cable télécom de fibre optique long de 2 km dans le quartier Part Dieu, Lyon 3ième. En fin de ligne, le 
+            câble monte dans un bâtiment de 11 étages, le Britannia. Interrogé par DAS durant 1 semaine en juin 2022.</li><br>
+          <li>A40 APRR/AREA : Cable télécom de fibre optique opéré par la société autoroutière APRR/AREA sur l'A40, "l'autoroute des Titans".
+            Interrogé par DAS durant 53h en Oct. 2023, la fibre échantillonne 26 ouvrages dont 12 viaducs et 3 tunnels.</li>
+        </ul>
+      </p>
+      <p><h3 id="NICE"><b>[NICE]</b></h3>
+          Généralement, gauge length de 6-10 m et fréquence d'échantillonnage de 100-200 Hz.
+          <ul>
+            <li>Le Teil : 14km.</li><br>
+            <li>LSPM : Câble de fibres optiques au large de Toulon. Interrogé par DAS sur 37 à 50 km selon la fibre.</li><br>
+            <li>MNCA : Câble de fibres optiques télécom à Nice long de 60 km et interrogé par DAS sur 20km.</li><br>
+            <li>HCMR : 13.2 km.</li><br>
+            <li>NESTOR : 26.3 km.</li><br>
+            <li>MONACO : Câble de fibres optiques Monaco-Savone, long de 160 km et interrogé par DAS sur environ 130 km.</li><br>
+            <li>ABYSS FO Norte : .</li><br>
+            <li>ABYSS FO Sur : .</li><br>
+            <li>ABYSS CONCON : .</li><br>
+          </ul>
+      </p>
+      <p><h3 id="GRENOBLE"><b>[GRENOBLE]</b></h3>
+        <ul>
+          <li>Grenoble Metropole.</li>
+          <li>Grenoble Campus.</li>
+          <li>Lacs Robert.</li>
+          <li>Saint-François Longchamp.</li>
+          <li>Glacier de Taconnaz.</li>
+          <li>Glacier d'Argentière.</li>
+          <li>Glacier de Tête Rousse.</li>
+          <li>ARGODAS : Argostoli sur l'île de Céphalonie (Grèce).</li>
+          <li>Champs de captage de Crépieux Charmy.</li>
+        </ul>
+      </p>
+      <p><h3 id="IPGP"><b>[IPGP]</b></h3>
+        <ul>
+          <li>Stromboli.</li>
+        </ul>
+      </p>
+      <p><h3 id="STRASBOURG"><b>[STRASBOURG]</b></h3>
+        <ul>
+          <li>StrasDAS : Fibre optique télécom située dans la ville de Strasbourg interrogée par DAS durant 1 semaine en Sept. 2023. Longueur ~10km
+            avec un pas échantillonnage spatial de 1m, une longueur de gauge de 10m, une fréquence d’échantillonnage de 200Hz,
+          </li><br>
+          <li>Pyrénées centrales : EOST/Febus, 30/8-30/9/2022, sampling 400 Hz, gauge length 10 m</li><br>
+          <li>Viella (glissement de terrain) : EOST/Febus, acquisition en cours > 30/10/2023, sampling 400 Hz, gauge length 1 m</li><br>
+          <li>Fontenotte (karst) : EOST/THETA, 5/2/2023 - 18/4/2021, sampling 1000 Hz, gauge length 1 m</li><br>
+        </ul>
+      </p>
+    </div>
 
-      const jsonData = JSON.stringify(formData, null, 2);
-      alert(jsonData);
-    }
-
-    function nextPage(currentPageId, nextPageId) {
-      document.getElementById(currentPageId).classList.remove('active');
-      document.getElementById(nextPageId).classList.add('active');
-    }
-
-    function prevPage(currentPageId, prevPageId) {
-      document.getElementById(currentPageId).classList.remove('active');
-      document.getElementById(prevPageId).classList.add('active');
-    }
-
-  </script>
-</head>
-
-
-<body>
-
-  <div class="container">
-  <h2>Fill your Fiber Optic Sensing metadata</h2>
+    <script type='text/javascript' src='maps/markers.js'></script>
+    <script type='text/javascript' src='maps/leaf-demo.js'></script>
+    <script type='text/javascript' src='maps/path-fiber.js'></script>
   
-  <ol>
-  <li>Fill the form.</li>
-  <li>Submit.</li>
-  <li>Copy the resulting JSON representation of the form data.</li>
-  <li>Paste it in an email.</li>
-  <li>If available, join the file of fiber path (shapefile, kml, or kmz).</li>
-  <li>Send the email to G-FROG.</li>
-  </ol>
-
-  <div class="form-page active" id="page1">
-    <!-- Form fields for page 1 -->
-    <form id="contactForm">
-
-        <h3>Overview</h3>
-        <label for="network_code">Network Code (maximum of 8 alphanumeric characters):</label>
-        <input type="text" id="network_code" name="network_code" required><br><br>
-        
-        <label for="location">Location (Name of the geographic location):</label>
-        <input type="text" id="location" name="location" required><br><br>
-
-        <label for="country">Country:</label>
-        <input type="text" id="country" name="country" required><br><br>
-
-        <label for="principle_investigator_name">Principle Investigator Name:</label>
-        <input type="text" id="principle_investigator_name" name="principle_investigator_name" required><br><br>
-
-        <label for="email">Principle Investigator Email:</label>
-        <input type="email" id="principle_investigator_email" name="principle_investigator_email" required><br><br>
-        
-        <label for="principle_investigator_address">Principle Investigator Address (Physical address of institution):</label>
-        <input type="text" id="principle_investigator_address" name="principle_investigator_address" required><br><br>
-
-        <label for="point_of_contact">Point of Contact:</label>
-        <input type="text" id="point_of_contact" name="point_of_contact" required><br><br>
-
-        <label for="email">Point of Contact Email:</label>
-        <input type="email" id="point_of_contact_email" name="point_of_contact_email" required><br><br>
-
-        <label for="point_of_contact">Point of Contact Address:</label>
-        <input type="text" id="point_of_contact_address" name="point_of_contact_address" required><br><br>
-
-        <label for="start_date">Start Date (Example 2016-03-11):</label>
-        <input type="text" id="start_date" name="start_date" required><br><br>
-
-        <label for="end_date">End Date (Example 2016-05-11):</label>
-        <input type="text" id="end_date" name="end_date" required><br><br>
-
-        <label for="funding_agency">Funding Agency:</label>
-        <input type="text" id="funding_agency" name="funding_agency" required><br><br>
-
-        <label for="project_number">Project Number:</label>
-        <input type="text" id="project_number" name="project_number" required><br><br>
-
-        <label for="digital_object_identifier">Digital Object Identifier:</label>
-        <input type="text" id="digital_object_identifier" name="digital_object_identifier" required><br><br>
-
-        <label for="purpose_of_data_collection">Purpose of Data Collection (Brief explanation of the purpose of experiment):</label>
-        <input type="text" id="purpose_of_data_collection" name="purpose_of_data_collection" required><br><br>
-
-        <label for="comment1">Comments:</label><br>
-        <textarea id="comment1" name="comment1" rows="4" cols="50" required></textarea><br><br>
-        
-        <button onclick="nextPage('page1', 'page2')">Next</button>
-  </div>
-
-  <div class="form-page" id="page2">
-    <h3>Interrogator</h3>
-
-    <label for="interrogator_id">Unique interrogator unit identifier (8 alphanumeric characters):</label>
-    <input type="text" id="interrogator_id" name="interrogator_id" required><br><br>
-    
-    <label for="manufacturer">Manufacturer name of the interrogator:</label>
-    <input type="text" id="manufacturer" name="manufacturer" required><br><br>
-
-    <label for="model">Model number of the interrogator:</label>
-    <input type="text" id="model" name="model" required><br><br>
-    
-    <label for="serial_number">Serial number of the interrogator:</label>
-    <input type="text" id="serial_number" name="serial_number" required><br><br>
-
-    <label for="firmware_version">Firmware version of the software:</label>
-    <input type="text" id="firmware_version" name="firmware_version" required><br><br>
-
-    <label for="comment2">Additional comments:</label><br>
-    <textarea id="comment2" name="comment2" rows="4" cols="50" required></textarea><br><br>
-
-    <button onclick="prevPage('page2', 'page1')">Back</button>
-    <button onclick="nextPage('page2', 'page3')">Next</button>
-  </div>
-
-  <div class="form-page" id="page3">
-    <h3>Acquisition</h3>
-
-    The Acquisition metadata describes the acquisition parameters set by the user on a particular interrogator. 
-    While different interrogator vendors may implement various photonics design and algorithms which are not easily 
-    translatable across interrogators, the Acquisition metadata intends to capture the critical acquisition attributes 
-    that are commonly required to analyze and interpret the output time series or matrices. These attributes are carefully 
-    defined to be standardized across all interrogator systems.<br><br>
-
-    <label for="acquisition_id">Unique identifier of the data acquisition (8 alphanumeric characters):</label>
-    <input type="text" id="acquisition_id" name="acquisition_id" required><br><br>
-    
-    <label for="acquisition_start_time">Start time of data acquisition in UTC (e.g. 2016-03-11T16:46:18.000Z):</label>
-    <input type="text" id="acquisition_start_time" name="acquisition_start_time" required><br><br>
-
-    <label for="acquisition_end_time">End time of data acquisition in UTC (e.g. 2016-04-11T16:46:18.000Z):</label>
-    <input type="text" id="acquisition_end_time" name="acquisition_end_time" required><br><br>
-    
-    <label for="acquisition_sample_rate">Acquisition sample rate (Hz):</label>
-    <input type="text" id="acquisition_sample_rate" name="acquisition_sample_rate" required><br><br>
-
-    <label for="gauge_length">Gauge length (meters):</label>
-    <input type="text" id="gauge_length" name="gauge_length" required><br><br>
-
-    <label for="number_of_channels">Number of channels:</label>
-    <input type="text" id="number_of_channels" name="number_of_channels" required><br><br>
-
-    <label for="spatial_sampling_interval">Spatial sampling interval (meters):</label>
-    <input type="text" id="spatial_sampling_interval" name="spatial_sampling_interval" required><br><br>
-
-    <label for="pulse_rate">Pulse rate frequency (Hz):</label>
-    <input type="text" id="pulse_rate" name="pulse_rate" required><br><br>
-
-    <label for="pulse_width">Pulse width (meters):</label>
-    <input type="text" id="pulse_width" name="pulse_width" required><br><br>
-
-    <label for="comment3">Additional comments:</label><br>
-    <textarea id="comment3" name="comment3" rows="4" cols="50" required></textarea><br><br>
-
-
-    <button onclick="prevPage('page3', 'page2')">Back</button>
-    <button onclick="nextPage('page3', 'page4')">Next</button>
-  </div>
-
-  <div class="form-page" id="page4">
-    <h3>Channel groups</h3>
-
-    The Channel Group metadata describes the properties that are common to all the 
-    channels nested under the Interrogator and Acquisition metadata blocks. Having 
-    a group-level metadata removes the repetition of common attributes in the individual 
-    Channel metadata. This design allows multiple channel groups to exist under the same 
-    interrogator and data acquisition settings. The unique identifiers for the interrogator, 
-    acquisition, cable and fiber are recorded as well in this metadata block to allows mapping 
-    between the interrogator, acquisition, and fiber that were used for this set of coordinates 
-    during a particular data collection.<br><br>
-
-    <label for="channel_group_id">Unique identifier of the channel group (8 alphanumeric characters):</label>
-    <input type="text" id="channel_group_id" name="channel_group_id" required><br><br>
-
-    <label for="interrogator_id">Identifier of interrogator (8 alphanumeric characters):</label>
-    <input type="text" id="interrogator_id" name="interrogator_id" required><br><br>
-
-    <label for="acquisition_id">Identifier of data acquisition (8 alphanumeric characters):</label>
-    <input type="text" id="acquisition_id" name="acquisition_id" required><br><br>
-
-    <label for="cable_id">Unique identifier of cable (8 alphanumeric characters):</label>
-    <input type="text" id="cable_id" name="cable_id" required><br><br>
-
-    <label for="fiber_id">Unique identifier of fiber (8 alphanumeric characters):</label>
-    <input type="text" id="fiber_id" name="fiber_id" required><br><br>
-
-    <label for="coordinate_generation_date">Coordinate generation date (e.g. 2016-07-01T00:00:00.000Z):</label>
-    <input type="text" id="coordinate_generation_date" name="coordinate_generation_date" required><br><br>
-
-    <label for="coordinate_system">Coordinate system (UTM is the preferred projected coordinate system):</label>
-    <input type="text" id="coordinate_system" name="coordinate_system" required><br><br>
-
-    <label for="reference_frame">Geodetic datum and / or grid zone number in UTM (e.g. UTM Zone 11N):</label>
-    <input type="text" id="reference_frame" name="reference_frame" required><br><br>
-
-    <label for="location_method">Location method (e.g. impact tests):</label>
-    <input type="text" id="location_method" name="location_method" required><br><br>
-
-    <label for="uncertainty_in_x_coordinate">Uncertainty in x coordinate (meters):</label>
-    <input type="text" id="uncertainty_in_x_coordinate" name="uncertainty_in_x_coordinate" required><br><br>
-
-    <label for="uncertainty_in_y_coordinate">Uncertainty in y coordinate (meters):</label>
-    <input type="text" id="uncertainty_in_y_coordinate" name="uncertainty_in_y_coordinate" required><br><br>
-
-    <label for="uncertainty_in_elevation">Uncertainty in elevation (meters):</label>
-    <input type="text" id="uncertainty_in_elevation" name="uncertainty_in_elevation" required><br><br>
-
-    <label for="uncertainty_in_depth">Uncertainty in depth (meters):</label>
-    <input type="text" id="uncertainty_in_depth" name="uncertainty_in_depth" required><br><br>
-
-    <label for="uncertainty_in_strike">Uncertainty in strike (degrees):</label>
-    <input type="text" id="uncertainty_in_strike" name="uncertainty_in_strike" required><br><br>
-
-    <label for="uncertainty_in_dip">Uncertainty in dip (degrees):</label>
-    <input type="text" id="uncertainty_in_dip" name="uncertainty_in_dip" required><br><br>
-
-    <label for="first_usable_channel_id">Number of the first usable channel:</label>
-    <input type="text" id="first_usable_channel_id" name="first_usable_channel_id" required><br><br>
-
-    <label for="last_usable_channel_id">Number of the last usable channel:</label>
-    <input type="text" id="last_usable_channel_id" name="last_usable_channel_id" required><br><br>
-
-    <label for="comment4">Additional comments:</label><br>
-    <textarea id="comment4" name="comment4" rows="4" cols="50" required></textarea><br><br>
-
-    <button onclick="prevPage('page4', 'page3')">Back</button>
-    <button onclick="nextPage('page4', 'page5')">Next</button>
-  </div>
-
-
-  <div class="form-page" id="page5">
-    <h3>Channel</h3>
-
-    <label for="channel_id">Channel ID:</label>
-    <input type="text" id="channel_id" name="channel_id" required><br><br>
-
-    <label for="distance_along_fiber">Distance along fiber (meters):</label>
-    <input type="text" id="distance_along_fiber" name="distance_along_fiber" required><br><br>
-
-    <label for="x_coordinate">X Coordinate:</label>
-    <input type="text" id="x_coordinate" name="x_coordinate" required><br><br>
-
-    <label for="y_coordinate">Y Coordinate:</label>
-    <input type="text" id="y_coordinate" name="y_coordinate" required><br><br>
-
-    <label for="elevation_above_sea_level">Elevation above sea level (meters):</label>
-    <input type="text" id="elevation_above_sea_level" name="elevation_above_sea_level" required><br><br>
-
-    <label for="depth_below_surface">Depth below surface (meters):</label>
-    <input type="text" id="depth_below_surface" name="depth_below_surface" required><br><br>
-
-    <label for="strike">Strike (degrees):</label>
-    <input type="text" id="strike" name="strike" required><br><br>
-
-    <label for="dip">Dip (degrees):</label>
-    <input type="text" id="dip" name="dip" required><br><br>
-
-    <button onclick="prevPage('page5', 'page4')">Back</button>
-    <button onclick="nextPage('page5', 'page6')">Next</button>
-  </div>
-
-  <div class="form-page" id="page6">
-    <h3>Cable</h3>
-
-    <label for="cable_id">Cable ID (8 alphanumeric characters):</label>
-    <input type="text" id="cable_id" name="cable_id" required><br><br>
-
-    <label for="cable_bounding_box">Cable Bounding Box:</label><br>
-    <label for="min_latitude">Min Latitude:</label>
-    <input type="text" id="min_latitude" name="min_latitude" required>
-    <label for="max_latitude">Max Latitude:</label>
-    <input type="text" id="max_latitude" name="max_latitude" required><br>
-    <label for="min_longitude">Min Longitude:</label>
-    <input type="text" id="min_longitude" name="min_longitude" required>
-    <label for="max_longitude">Max Longitude:</label>
-    <input type="text" id="max_longitude" name="max_longitude" required><br><br>
-
-    <label for="cable_owner">Cable Owner:</label>
-    <input type="text" id="cable_owner" name="cable_owner" required><br><br>
-
-    <label for="cable_installation_date">Cable Installation Date:</label>
-    <input type="text" id="cable_installation_date" name="cable_installation_date" required><br><br>
-
-    <label for="cable_removal_date">Cable Removal Date:</label>
-    <input type="text" id="cable_removal_date" name="cable_removal_date" required><br><br>
-
-    <label for="cable_characteristics">Cable Characteristics:</label>
-    <input type="text" id="cable_characteristics" name="cable_characteristics" required><br><br>
-
-    <label for="cable_environment">Cable Environment:</label>
-    <input type="text" id="cable_environment" name="cable_environment" required><br><br>
-
-    <label for="cable_installation_environment">Cable Installation Environment:</label>
-    <input type="text" id="cable_installation_environment" name="cable_installation_environment" required><br><br>
-
-    <label for="cable_model">Cable Model:</label>
-    <input type="text" id="cable_model" name="cable_model" required><br><br>
-
-    <label for="cable_outside_diameter">Cable Outside Diameter:</label>
-    <input type="text" id="cable_outside_diameter" name="cable_outside_diameter" required><br><br>
-
-    <label for="comment5">Additional comments:</label><br>
-    <textarea id="comment5" name="comment5" rows="4" cols="50" required></textarea><br><br>
-
-    <button onclick="prevPage('page6', 'page5')">Back</button>
-    <button onclick="nextPage('page6', 'page7')">Next</button>
-</div>
-
-<div class="form-page" id="page7">
-    <h3>Fiber</h3>
-
-    <label for="fiber_id">Fiber ID (8 alphanumeric characters):</label>
-    <input type="text" id="fiber_id" name="fiber_id" required><br><br>
-
-    <label for="fiber_geometry">Fiber Geometry:</label>
-    <input type="text" id="fiber_geometry" name="fiber_geometry" required><br><br>
-
-    <label for="fiber_mode">Fiber Mode:</label>
-    <input type="text" id="fiber_mode" name="fiber_mode" required><br><br>
-
-    <label for="fiber_refraction_index">Fiber Refraction Index:</label>
-    <input type="text" id="fiber_refraction_index" name="fiber_refraction_index" required><br><br>
-
-    <label for="fiber_winding_angle">Fiber Winding Angle (degrees):</label>
-    <input type="text" id="fiber_winding_angle" name="fiber_winding_angle" required><br><br>
-
-    <label for="fiber_start_location">Fiber Start Location:</label>
-    <input type="text" id="fiber_start_location" name="fiber_start_location" required><br><br>
-
-    <label for="fiber_end_location">Fiber End Location:</label>
-    <input type="text" id="fiber_end_location" name="fiber_end_location" required><br><br>
-
-    <label for="fiber_optical_length">Fiber Optical Length:</label>
-    <input type="text" id="fiber_optical_length" name="fiber_optical_length" required><br><br>
-
-    <label for="fiber_one_way_attenuation">Fiber One-Way Attenuation:</label>
-    <input type="text" id="fiber_one_way_attenuation" name="fiber_one_way_attenuation" required><br><br>
-
-    <label for="comment6">Additional comments:</label><br>
-    <textarea id="comment6" name="comment6" rows="4" cols="50" required></textarea><br><br>
-
-    <button onclick="prevPage('page7', 'page6')">Back</button>
-    <button onclick="displayJSON()">Submit</button>
-  </div>
-
-  </form>
-
-  </div>
-
-  <pre id="jsonDisplay"></pre>
-</body>
+  </body>
 </html>
